@@ -28,7 +28,7 @@ jobs:
           context: "{{defaultContext}}:containers/antora"
           tags: | 
             quay.io/bluebird/antora:${{matrix.base_image_version}}
-            quay.io/bluebird/antora:${{matrix.base_image_version}}-${{github.run_number}}
+            quay.io/bluebird/antora:${{matrix.base_image_version}}-b${{github.run_number}}
           build-args: |
             VERSION=${{matrix.base_image_version}}
             BASE_IMAGE=${{matrix.base_image}}

@@ -29,7 +29,7 @@ jobs:
           context: "{{defaultContext}}:containers/ghr"
           tags: | 
             quay.io/bluebird/ghr:${{matrix.ghr_version}}
-            quay.io/bluebird/ghr:${{matrix.ghr_version}}-${{github.run_number}}
+            quay.io/bluebird/ghr:${{matrix.ghr_version}}-b${{github.run_number}}
           build-args: |
             VERSION=${{matrix.ghr_version}}
             BASE_IMAGE=${{matrix.base_image}}
