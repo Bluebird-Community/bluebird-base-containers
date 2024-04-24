@@ -1,4 +1,4 @@
-name: Build and Deploy Docker images
+name: ghr docker images (build & deploy)
 on:
   push:
   workflow_dispatch:
@@ -8,8 +8,8 @@ jobs:
     strategy:
       matrix:
         base_image: [alpine]
-        base_version: [3.19]
-        version: [ 0.12.1, 0.12.2, 0.13.0, 0.14.0, 0.15.0, 0.16.0, 0.16.1, 0.16.2 ]
+        base_image_version: [3.19]
+        ghr_version: [ 0.12.1, 0.12.2, 0.13.0, 0.14.0, 0.15.0, 0.16.0, 0.16.1, 0.16.2 ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -26,11 +26,12 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: ${{github.ref_name == 'main'}}
+          context: "{{defaultContext}}:containers/ghr"
           tags: | 
-            quay.io/bluebird/ghr:${{matrix.version}}
-            quay.io/bluebird/ghr:${{matrix.version}}-${{github.run_number}}
+            quay.io/bluebird/ghr:${{matrix.ghr_version}}
+            quay.io/bluebird/ghr:${{matrix.ghr_version}}-${{github.run_number}}
           build-args: |
-            VERSION=${{matrix.version}}
+            VERSION=${{matrix.ghr_version}}
             BASE_IMAGE=${{matrix.base_image}}
-            BASE_IMAGE_VERSION=${{matrix.base_version}}
+            BASE_IMAGE_VERSION=${{matrix.base_image_version}}
             BUILD_DATE=${{env.BUILD_DATE}}
