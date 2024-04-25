@@ -1,6 +1,9 @@
 name: antora docker images (build & deploy)
 on:
   push:
+    paths:
+      - 'containers/antora/**'
+      - '.github/workflows/workflow-antora.yml'
   workflow_dispatch:
 jobs:
   build_and_push:

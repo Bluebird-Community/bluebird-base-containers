@@ -1,6 +1,9 @@
 name: ghr docker images (build & deploy)
 on:
   push:
+    paths:
+      - 'containers/ghr/**'
+      - '.github/workflows/workflow-ghr.yml'
   workflow_dispatch:
 jobs:
   build_and_push:
